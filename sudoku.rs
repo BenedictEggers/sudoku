@@ -11,9 +11,9 @@ fn main() {
 
 // Print out the board (called after a solution is found, and useful for debugging)
 fn print_board(b: Box<Board> ) {
-	for row in range(0, 9) {
-		for col in range(0, 9) {
-			print!("{} ", b.get(row as uint, col as uint))
+	for row in range(0u, 9u) {
+		for col in range(0u, 9u) {
+			print!("{} ", b.get(row, col))
 			if (col+1) % 3 == 0 {
 				// block spacing
 				print!(" ")
@@ -37,11 +37,18 @@ impl Board {
 		Board{ nums: [[0u8, ..9], ..9] }
 	}
 
+	// get the number at (row, col)
 	fn get(&self, row: uint, col: uint) -> u8 {
 		self.nums[row][col]
 	}
 
+	// sets (row, col) to the passed number
 	fn set(&mut self, row: uint, col: uint, num: u8) {
 		self.nums[row][col] = num;
+	}
+
+	// Whether or not the passed number is legal at (row, col)
+	fn is_legal(&self, row: uint, col: uint, num: u8) -> bool {
+
 	}
 }
