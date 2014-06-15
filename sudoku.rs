@@ -13,7 +13,7 @@ fn main() {
 fn print_board(b: Box<Board> ) {
 	for row in range(0, 9) {
 		for col in range(0, 9) {
-			print!("{}", b.get(row, col))
+			print!("{}", b.get(row as uint, col as uint))
 		}
 		println!("");
 	}
@@ -30,7 +30,7 @@ impl Board {
 	}
 
 	fn get(&self, row: uint, col: uint) -> u8 {
-		self.nums[row][col];
+		self.nums[row][col]
 	}
 
 	fn set(&mut self, row: uint, col: uint, num: u8) {
