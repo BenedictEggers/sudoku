@@ -13,8 +13,9 @@ fn main() {
 fn print_board(b: Box<Board> ) {
 	for row in range(0, 9) {
 		for col in range(0, 9) {
-			print!("{}", b.At(row, col))
+			print!("{}", b.get(row, col))
 		}
+		println!("");
 	}
 }
 
@@ -25,14 +26,14 @@ struct Board {
 
 impl Board {
 	fn new() -> Board {
-		Board{ nums: [[u8, ..9], ..9] }
+		Board{ nums: [[0u8, ..9], ..9] }
 	}
 
-	fn get(&self, row: u8, col: u8) -> u8 {
+	fn get(&self, row: uint, col: uint) -> u8 {
 		self.nums[row][col];
 	}
 
-	fn set(&mut self, row: u8, col: u8, num: u8) {
+	fn set(&mut self, row: uint, col: uint, num: u8) {
 		self.nums[row][col] = num;
 	}
 }
