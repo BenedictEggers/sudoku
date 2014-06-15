@@ -13,9 +13,17 @@ fn main() {
 fn print_board(b: Box<Board> ) {
 	for row in range(0, 9) {
 		for col in range(0, 9) {
-			print!("{}", b.get(row as uint, col as uint))
+			print!("{} ", b.get(row as uint, col as uint))
+			if (col+1) % 3 == 0 {
+				// block spacing
+				print!(" ")
+			}
 		}
-		println!("");
+		println!("")
+		if (row+1) % 3 == 0 {
+			// block spacing
+			println!("")
+		}
 	}
 }
 
