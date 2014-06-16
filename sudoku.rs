@@ -4,37 +4,6 @@
 // Sudoku solver, in Rust.
 
 
-fn main() {
-	let mut b = box Board::new();
-	print_board(&b);
-	b.set(0, 0, 1);
-	print_board(&b);
-}
-
-// Print out the board (called after a solution is found, and useful for debugging)
-fn print_board(b: &Box<Board>) {
-	for row in range(0u, 9u) {
-		for col in range(0u, 9u) {
-			let n = b.get(row, col);
-			if n != 0 {
-				print!("{} ", n)
-			} else {
-				// We want dashes, not 0s
-				print!("- ")
-			}
-			if (col+1) % 3 == 0 {
-				// block spacing
-				print!(" ")
-			}
-		}
-		println!("")
-		if (row+1) % 3 == 0 {
-			// block spacing
-			println!("")
-		}
-	}
-}
-
 // How we represent the board
 struct Board {
 	nums: [[u8, ..9], ..9]
@@ -82,4 +51,36 @@ impl Board {
 
 		true
 	}
+
+	// Prints the board to stdout
+	fn print(&self) {
+		for row in range(0u, 9u) {
+			for col in range(0u, 9u) {
+				let n = self.get(row, col);
+				if n != 0 {
+					print!("{} ", n)
+				} else {
+					// We want dashes, not 0s
+					print!("- ")
+				}
+				if (col+1) % 3 == 0 {
+					// block spacing
+					print!(" ")
+				}
+			}
+			println!("")
+			if (row+1) % 3 == 0 {
+				// block spacing
+				println!("")
+			}
+		}
+	}
+}
+
+
+fn main() {
+	let mut b = box Board::new();
+	b.print();
+	b.set(0, 0, 1);
+	b.print();
 }
