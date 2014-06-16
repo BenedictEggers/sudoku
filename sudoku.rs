@@ -5,12 +5,14 @@
 
 
 fn main() {
-	let b = box Board::new();
-	print_board(b);
+	let mut b = box Board::new();
+	print_board(&b);
+	b.set(0, 0, 1);
+	print_board(&b);
 }
 
 // Print out the board (called after a solution is found, and useful for debugging)
-fn print_board(b: Box<Board> ) {
+fn print_board(b: &Box<Board>) {
 	for row in range(0u, 9u) {
 		for col in range(0u, 9u) {
 			let n = b.get(row, col);
