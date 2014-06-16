@@ -60,13 +60,23 @@ impl Board {
 			return true
 		}
 
+		// Check the row and column of the potential location for num
 		for i in range(0u, 9u) {
 			if self.get(row, i) == num || self.get(i, col) == num {
 				return false
 			}
 		}
 
-
+		// Now, check its "box" of 9 points
+		let box_pt_r = row / 3 * 3;  // Yay integer arithmetic!
+		let box_pt_c = col / 3 * 3;
+		for r in range(0u, 3u) {
+			for c in range(0u, 3u) {
+				if self.get(box_pt_r + r, box_pt_c + c) == num {
+					return false
+				}
+			}
+		}
 
 		true
 	}
