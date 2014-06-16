@@ -56,22 +56,23 @@ impl Board {
 		// We're going to brute-force recursive-backtrack all the possible
 		// combinations (yay NP-complete problems)
 		let next = self.next_open_square();
-		let next_x = next.val0();
-		let next_y = next.val1();
 
 		// Check to see if the board is complete--if it is, we're done!
 		if next == (0, 0) {
 			return true
 		}
 
-		for num in range(0u8, 9u8) {
+		// Niceties
+		let next_x = next.val0();
+		let next_y = next.val1();
+
+		for num in range(1u8, 10u8) {
 			if self.is_legal(next_x, next_y, num) {
 				// We're allowed to put this number there, so do so
 				self.set(next_x, next_y, num);
 
 				// Then recurse to see if the board is solvable
-				let solved = self.solve();
-				if solved {
+				if self.solve() {
 					// We did it!
 					return true;
 				}
@@ -135,5 +136,7 @@ fn main() {
 	b.print();
 	b.set(0, 0, 1);
 	b.set(4, 0, 2);
+	b.print();
+	b.solve();
 	b.print();
 }
