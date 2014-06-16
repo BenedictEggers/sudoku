@@ -13,7 +13,13 @@ fn main() {
 fn print_board(b: Box<Board> ) {
 	for row in range(0u, 9u) {
 		for col in range(0u, 9u) {
-			print!("{} ", b.get(row, col))
+			let n = b.get(row, col);
+			if n != 0 {
+				print!("{} ", n)
+			} else {
+				// We want dashes, not 0s
+				print!("- ")
+			}
 			if (col+1) % 3 == 0 {
 				// block spacing
 				print!(" ")
@@ -49,6 +55,19 @@ impl Board {
 
 	// Whether or not the passed number is legal at (row, col)
 	fn is_legal(&self, row: uint, col: uint, num: u8) -> bool {
+		// If the number is already there, it's possible to have it there
+		if self.nums[row][col] == num {
+			return true
+		}
 
+		for i in range(0u, 9u) {
+			if self.get(row, i) == num || self.get(i, col) == num {
+				return false
+			}
+		}
+
+
+
+		true
 	}
 }
