@@ -3,6 +3,7 @@
 
 // Sudoku solver, in Rust.
 
+use std::io;
 
 // How we represent the board
 struct Board {
@@ -132,11 +133,28 @@ impl Board {
 
 
 fn main() {
+	// Set up the board
 	let mut b = box Board::new();
-	b.print();
-	b.set(0, 0, 1);
-	b.set(4, 0, 2);
-	b.print();
-	b.solve();
-	b.print();
+	println!("This program solves sudoku.");
+	print!("Please input your sudoku as 9 lines of 9 space-separated ")
+	println!("characters, with \"-\" representing a blank character.")
+	let mut count = 0;
+	for line in io::stdin().lines() {
+		if count == 9 {
+			break;
+		}
+
+		let chars = line.unwrap().words();
+		if chars.length() != 9 {
+			println!("Invalid line! Quitting")
+		}
+	}
+
+	let solved = b.solve();
+
+	if !solved {
+		println!("Unsolvable puzzle. Exiting...")
+	} else {
+		b.print();
+	}
 }
