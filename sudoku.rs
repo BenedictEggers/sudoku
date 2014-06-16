@@ -4,6 +4,7 @@
 // Sudoku solver, in Rust.
 
 use std::io;
+use std::io::BufferedReader;
 
 // How we represent the board
 struct Board {
@@ -138,16 +139,29 @@ fn main() {
 	println!("This program solves sudoku.");
 	print!("Please input your sudoku as 9 lines of 9 space-separated ")
 	println!("characters, with \"-\" representing a blank character.")
-	let mut count = 0;
-	for line in io::stdin().lines() {
-		if count == 9 {
-			break;
+	
+	let mut reader = BufferedReader::new(io::stdin());
+
+	for row in range(0u, 9u) {
+		let mut input = reader.read_line().unwrap();
+
+		if input.len() != 17 {
+			println!("Invalid line, bailing");
 		}
 
-		let chars = line.unwrap().words();
-		if chars.length() != 9 {
-			println!("Invalid line! Quitting")
+		// Now let's set up this row
+		for (i, c) in input.as_slice().chars().enumerate() {
+			if (i+1) % 2 == 1 {
+				// It should either be a digit or a dash
+				if !c.is_digit() && c != '-' {
+					println!("Invalid line, bailing")
+				}
+
+			} else if c != '-' {
+				println!("Invalid line, bailing")
+			}
 		}
+		
 	}
 
 	let solved = b.solve();
