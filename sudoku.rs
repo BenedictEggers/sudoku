@@ -146,7 +146,7 @@ fn main() {
 		let input = reader.read_line().unwrap();
 
 		if input.len() != 18 {
-			println!("Invalid line, bailing. {}", input.len());
+			println!("Invalid line, please quit and try again.");
 		}
 
 		// Now let's set up this row
@@ -158,11 +158,11 @@ fn main() {
 				} else if c == '-' {
 					b.set(i/2, row, 0)
 				} else {
-					println!("Invalid line, bailing!")
+					println!("Invalid line, please quit and try again.")
 				}
 
 			} else if c != ' ' && c != '\n' {
-				println!("Invalid line, bailing? {} {}", c, i)
+				println!("Invalid line, please quit and try again.")
 			}
 		}
 		
