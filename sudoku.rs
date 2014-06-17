@@ -143,22 +143,26 @@ fn main() {
 	let mut reader = BufferedReader::new(io::stdin());
 
 	for row in range(0u, 9u) {
-		let mut input = reader.read_line().unwrap();
+		let input = reader.read_line().unwrap();
 
-		if input.len() != 17 {
-			println!("Invalid line, bailing");
+		if input.len() != 18 {
+			println!("Invalid line, bailing. {}", input.len());
 		}
 
 		// Now let's set up this row
 		for (i, c) in input.as_slice().chars().enumerate() {
 			if (i+1) % 2 == 1 {
 				// It should either be a digit or a dash
-				if !c.is_digit() && c != '-' {
-					println!("Invalid line, bailing")
+				if c.is_digit() {
+					b.set(i/2, row, c.to_digit(10).unwrap() as u8)
+				} else if c == '-' {
+					b.set(i/2, row, 0)
+				} else {
+					println!("Invalid line, bailing!")
 				}
 
-			} else if c != '-' {
-				println!("Invalid line, bailing")
+			} else if c != ' ' && c != '\n' {
+				println!("Invalid line, bailing? {} {}", c, i)
 			}
 		}
 		
